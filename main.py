@@ -101,13 +101,6 @@ def get_birthday(birthday, year, today):
         birth_day = str(birth_date.__sub__(today)).split(" ")[0]
     return birth_day
  
- def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
-  if words.status_code != 200:
-    return get_words()
-   note_ch = words.json()['data']['text']
-  return note_ch
- 
 def get_ciba():
     url = "http://open.iciba.com/dsapi/"
     headers = {
@@ -232,7 +225,7 @@ if __name__ == "__main__":
     note_en = config["note_en"]
     if note_ch == "" and note_en == "":
         # 获取词霸每日金句
-        note_ch = get_words()
+        note_ch, note_en = get_ciba()
     # 公众号推送消息
     for user in users:
         send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en)
